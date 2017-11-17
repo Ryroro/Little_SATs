@@ -1,0 +1,36 @@
+#include <iostream>
+#include <string>
+#include "data_type.h"
+#include "Formatter.h"
+#include <assert.h>
+
+string input1 = "(a and b)";
+string input2 = "((a and b) or c)";
+string input3 = "(c or ((not a) or c)";
+
+void test_case1() {
+
+  cout << "test case1" << endl;
+
+  vector<string> ts;
+
+  Node* node = new Node();
+
+  format(input1, ts);
+
+  build_tree(ts, node);
+
+  walk_print_tree(node);
+
+}
+
+  
+
+int main() {
+
+  test_case1();
+
+
+}
+
+

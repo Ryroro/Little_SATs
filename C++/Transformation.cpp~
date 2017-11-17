@@ -1,0 +1,48 @@
+#include <iostream>
+#include "Transformation.h"
+#include "data_type.h"
+using namespace std;
+
+
+// the node passed in is the node with the
+// id of imply
+void eliminate_imply(Id_Node* id_node) {
+
+  Id_Node* not_node = new Id_Node();
+  not_node->id = -1;
+
+  add_node_left_left_on_new(id_node, not_node);
+
+  id_node->id = -3;
+
+}
+
+void eliminate_iff(Id_Node* id_node) {
+
+  Id_Node* and_node1 = new Id_Node();
+  or_node1->id = -2;
+  Id_Node* and_node2 = new Id_Node();
+  or_node2->id = -2;
+
+  Id_Node* left_node_copy;
+  copy_create(id_node->left, left_node_copy);
+  Id_Node* right_node_copy;
+
+  Id_Node* not_node1 = new Id_Node();
+  not_node1->id = -1;
+  Id_Node* not_node2 = new Id_Node();
+  not_node2->id = -1;
+  
+  copy_create(id_node->right, right_node_copy);
+
+  add_node_left_left_on_new(id_node, and_node1);
+
+  add_node_right_right_on_new(id_node->left, right_node_copy);
+
+  add_node_right_right_on_new(id_node, and_node2);
+
+  add_node_left_left_on_new(id_node->right. not_node1);
+  add_node_left_left_on_new(id_node->right->left, left_node_copy);
+  add_node_right_left_on_new(id_node->right, not_node2);
+
+}  

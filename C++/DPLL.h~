@@ -1,0 +1,8 @@
+#ifndef _DPLL_H_
+#define _DPLL_H_
+#include <iostream>
+using namespace std;
+
+void get_cnf_input(vector<int>);
+
+#endif

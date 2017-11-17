@@ -1,0 +1,7 @@
+#include <vector>
+#include <string>
+#include "data_type.h"
+
+using namespace std;
+
+void format(string&, vector<string>&);

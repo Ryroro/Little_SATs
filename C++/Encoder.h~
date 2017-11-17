@@ -1,0 +1,9 @@
+#include <iostream>
+
+class Encoder {
+ public:
+  Encoder() {};
+ private:
+  int encode();
+
+};

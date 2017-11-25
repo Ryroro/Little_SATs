@@ -1,0 +1,113 @@
+#include <iostream>
+#include "data_type.h"
+#include "dpll.h"
+#include "parser.h"
+using namespace std;
+
+Formula bcp(Formula formula) {
+ 
+  auto formula_begin = formula.formula.begin();
+  auto formula_end = formula.formula.end();
+
+  int count = 0;
+
+  while (formula_begin != formula_end) {
+
+    bool exist = false;
+    Clause clause;
+    int id;
+
+    if (*formula_begin.num_elem() == 1) {
+      id = -(*formula_begin.get_id(0));
+      formula_begin = formula.erase(formula_begin);
+      formula_end = formula.end();
+
+      // remove the literals with the id in all formula
+
+      auto temp_begin = formula.begin();
+      auto temp_end = formula.end();
+
+      while (temp_begin != temp_end) {
+	bool update = false; // whether temp_begin is changed in other condition
+	if (*temp_begin.is_elem(id)) {
+	  clause = *temp_begin;
+	  *temp_begin.erase_elem(id);
+
+	  if (*temp_begin.length == 0) {
+	    temp_begin = formula.erase(temp_begin);
+	    temp_end = formula.end();
+	    update = true;
+	  }
+
+	  exist = true;
+
+	}
+
+	if (*temp_begin.length == 1 && (*temp_begin.get_id[0] == -id ||
+					*temp_begin.get_id[0] == id)) {
+	  temp_begin = formula.erase(temp_begin);
+	  temp_end = formula.end();
+	  update = true;
+	}
+
+	if (!update) {
+	  temp_begin++;
+
+	}
+      }
+        if (!exist) {
+	  formula_begin = formula.insert(clause);
+	  formula_end = formula.end();
+      }
+    }
+
+    if (!formula.check_if_elem_exist(id)) {
+      formula.delete(var);
+    }
+
+    
+  }
+
+  
+	    
+
+}
+  
+
+/*
+
+Formula* dpll(Formula formula) {
+  Formula updated_formula = bcp(formula);
+  
+  if (formula.result == 1) {
+    return formula.decision_table;
+  } else if (formula->result == 0) {
+    return nullptr;
+  }
+
+  int p = choose_var(formula);
+  DecisionTable* decision_table = dpll(formula);
+  // change formula to insert p as true and p as false
+  if (decision_table != nullptr) {
+    return decision_table;
+  } else {
+    return dpll(formula);
+    // set formula as false
+  }
+}
+
+
+*/
+
+int main() {
+
+  Parser parser;
+  Formula* formula;
+  formula = parser.start_parser();
+  formula = bcp(formula);
+  formula.print_formula();
+  return 0;
+  
+
+
+}

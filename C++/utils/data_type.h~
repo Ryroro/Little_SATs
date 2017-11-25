@@ -1,0 +1,34 @@
+#include <iostream>
+using namespace std;
+
+
+class Lit {
+ public:
+  Lit() {}
+  Lit{int);
+  int id;
+};
+
+class Clause {
+ public:
+  Clause() {}
+  Clause(int n);
+  Lit** clause = nullptr;
+  Lit** cur = nullptr;
+  Lit** end = nullptr;
+  void push(Lit*);
+  void pop();
+  
+
+};
+
+class Formula {
+ public:
+  Formula() {}
+  Formula(int n);
+  Clause** formula = nullptr;
+  Clause** cur = nullptr;
+  Clause** end = nullptr;
+  void push(Clause*);
+  
+};

@@ -1,0 +1,15 @@
+#include <iostream>
+#include "parser.h"
+using namespace std;
+
+Formula* Parser::start_parser() {
+  int n_var; // the maximum number of literals in a clause
+  int n_clause; // the number of clause
+  cin >> n_var >> n_clause;
+
+  Formula* formula = new Formula(n_clause);
+  
+  for (int i = 0; i < n_clause; i++) {
+    for (int j = 0; j < n_var; j++) {
+      int c;
+  

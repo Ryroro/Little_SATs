@@ -1,0 +1,12 @@
+#ifndef _PARSER_H_
+#define _PARSER_H_
+#include <iostream>
+using namespace std;
+class Parser {
+ public:
+  Parser();
+  Formula* start_parser(); // get formula
+
+};
+
+#endif _PARSER_H_

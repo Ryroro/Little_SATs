@@ -6,29 +6,69 @@
 
 using namespace std;
 
+// when the clause is initialized with a given int,
+// the int indicates how many elements are going to
+// be assigned to the clause
+// However, the clause needs a 0 in the end of the
+// clause to signal the ending
+// hence n+1 memory blck is actually needed
 Clause::Clause(int n) {
 
-  data = new int[n];
+  elem_size = n;
+  mem_size = n+1;
+
+  data = new int[mem_size];
 
 }
 
 
 Clause::Clause():
 void Clause::pop() {
+  
   p--;
-  size--;
+  elem_size--;
   delete data[p+1];
 }
 
 void Clause::push(int i) {
   auto old_data = data;
-  data = new int[(p+1)+1];
-  for (int i = 0; i <= p; i++) {
+  data = new int[elem_size+2];
+  for (int i = 0; i < (elem_size); i++) {
     data[i] = old_data[i];
   }
-  data[p+1] = i;
+  data[p+1] = ;
   delete old_data;
   size++;
+}
+
+void Clause::remove(int index) {
+  int* old_data = data;
+  int* new_data = new int[p-1];
+  for (int i = 0; i <= p-1; i++) {
+    if ( i == index ) {
+      data++;
+      continue;
+    }
+    new_data[i] = *data;
+    data++;
+  }
+  delete old_data;
+  data = new_data;
+}
+  
+
+int Clause::length() {
+  return p;
+}
+
+int Clause::is_elem(int n) {
+
+  for (int i = 0; i <= p; i++ ) {
+    if ( data[i] == n ) {
+      return true;
+    }
+  }
+  return false;
 }
 
 Formula::Formula(int n, int m) {
@@ -47,10 +87,21 @@ void Formula::pop() {
 
 }
 
-void Formula::push() {
+void Formula::push(Clause* clause) {
 
   auto old_formula = formula;
-  new_formula = new Clause[n+1]
+  new_formula = new Clause[n+1];
+  for (int i = 0; i <= p; i++) {
+
+    formula[i] = old_formula[i];
+
+  }
+
+  formula[p+1] = clause;
+  delete old_formula;
+  p++;
+  size++;
+}
 
   
 

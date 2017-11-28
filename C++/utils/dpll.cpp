@@ -94,6 +94,73 @@ Formula bcp(Formula formula) {
 
 }
 
+Formula plp(Formula f) {
+
+  map<int, int> track_map;
+			
+  auto v_begin = f.variable_list.begin();
+  auto v_end = f.variable_list.end();
+
+  while (v_begin != v_end) {
+    track_map.push_back(make_pair(*v_begin,0));
+    track_map.push_back(make_pair(-(*v_begin), 0));
+    v_begin++;
+  }
+
+  while (f_begin != f_end) {
+
+    auto clause_begin = (*f_begin).variable_list.begin();
+    auto clause_end = (*f_end).variable_list.end();
+
+    VariableList vars;
+
+    while (clause_begin != clause_end) {
+      vars.push_back(*clause_begin);
+      clause_begin++:
+    }
+
+    auto n_vars_begin = vars.begin();
+    auto n_vars_end = vars.end();
+
+    while (n_vars_begin != n_vars_end) {
+      track_map[*n_vars_begin]++;
+      n_vars_begin++:
+    }
+
+    f_begin++;
+  }
+
+  v_begin = f.variable_list.begin();
+  v_end = f.variable_list.end();
+
+  while (v_begin != v_end) {
+    if (track_map[*v_begin] >= min_occur) {
+      auto d_iter = f.decision_table.get(*v_begin);
+
+      if (*v_begin > 0) {
+        (*d_iter).second = true;
+      } else {
+	(*d_iter).second = false;
+      }
+    
+    }
+    if (track_map[-(*v_begin)] >= min_occur) {
+
+      if (*v_begin > 0) {
+	(*d_iter).second = false;
+      } else {
+	(*d_iter).second = true;
+      }
+  
+    }
+    v_begin++;
+  }
+}
+
+      
+
+
+
 int simple_choose_var(Formula& formula) {
   cout << "in SIMPLE_CHOOSE_VAR" << endl;
   

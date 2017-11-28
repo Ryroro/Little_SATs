@@ -104,10 +104,49 @@ void Sodoku_Encoder::transform() {
   for (int y_grid = 0; y_grid < 3; y_grid++) {
     for (int x_grid = 0; x_grid < 3; x_grid++) {
       for (int r_grid = 0; r_grid < 3; r_grid++) {
-	for (int c_grid = 0; c_grid < 3; c_grid++) {
-	  for (int v = 0; v < num_var; v++) {
-	    Lit lit1;
-	    Lit lit2;
+	for (int v = 0; v < num_var; v++) {
+	  for (int c_grid = 0; c_grid < 3; c_grid++) {
+	    for (int _c_grid = c_grid < 3; _c_grid++) {
+	      Clause clause;
+	      Lit lit1;
+	      Lit lit2;
+	      lit1.id = (y_grid*3+r_grid)*100 + (x_grid*3+c_grid)*10 + v;
+	      lit2.id = (y_grid*3+r_grid)*100 + (x_grid*3+_c_grid)*10 + v;
+	      clause.push_back(-lit1);
+	      clause.push_back(-lit2);
+	      temp_f4.push_back(clause);
+	    }
+	  }
+	}
+      }
+    }
+  }
+
+  vector<Clause> temp_f5;
+  for (int y_grid = 0; y_grid < 3; y_grid++) {
+    for (int x_grid = 0; x_grid < 3; x_grid++) {
+      for (int c_grid = 0; c_grid < 3; c_grid++) {
+	for (int v = 0; v < num_var; v++) {
+	  for (int r_grid = 0; r_grid < 3; r_grid++) {
+	    for (int _r_grid = r_grid < 3; _r_grid++) {
+	      Clause clause;
+	      Lit lit1;
+	      Lit lit2;
+	      lit1.id = (y_grid*3+r_grid)*100 + (x_grid*3+c_grid)*10 + v;
+	      lit2.id = (y_grid*3+_r_grid)*100 + (x_grid*3+c_grid)*10 + v;
+	      clause.push_back(-lit1);
+	      clause.push_back(-lit2);
+	      temp_f4.push_back(clause);
+	    }
+	  }
+	}
+      }
+    }
+  }
+
+ 
+	      
+	   
 	    
 	  
 
